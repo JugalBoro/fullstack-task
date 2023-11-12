@@ -38,4 +38,4 @@ You are tasked to develop a web application that allows users to upload a PDF fi
 - Code Quality: Is the code well-organized, commented, and easy to understand?
 - User Experience: Is the application easy to use and intuitive?
 - Error Handling: How does the application handle potential errors?
-- Documentation: Is the code and the setup process well-documented?
+- Documentation: Is the code and the setup process well-documented??
