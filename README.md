@@ -5,8 +5,10 @@
 https://frontendvidyalai.onrender.com/
 
 ```
+2. Backend Depolyment Live Link
+   ```bash
+   https://backendvidyalai.onrender.com/
 
-   
    
 A web application for uploading, processing, and managing PDF files.
 
@@ -16,7 +18,8 @@ A web application for uploading, processing, and managing PDF files.
 - **PDF Display**: View the original and generated PDFs with selected pages.
 - **PDF Creation**: Create a new PDF by selecting specific pages from the original PDF.
 - **File Retrieval**: Retrieve individual PDFs and view their content.
-- **Get All PDFs**: Retrieve a list of all PDFs with file IDs and names.
+- **Get All PDFs(Backend)**: Retrieve a list of all PDFs with file IDs and names.
+- **File Download and Select**: Select your pages of pdf and download.
 
 ## Technologies Used
 
@@ -42,6 +45,15 @@ A web application for uploading, processing, and managing PDF files.
 4.  Run Backend 
 ```bash
 npm run dev
+
+```
+5. open new terminal and go to frontend directory
+   ```bash
+   cd frontend
+6.Install all libraries and run
+```bash
+npm install
+npm start
 
 
 
