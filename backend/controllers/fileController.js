@@ -61,7 +61,26 @@ const retrieveFile = async (req, res) => {
   }
 };
 
+const retrieveAllFiles = async (req, res) => {
+  try {
+    // Retrieve all PDFs from MongoDB
+    const allPdfs = await PdfModel.find();
+
+    // Map the data to include only necessary information
+    const pdfData = allPdfs.map((pdf) => ({
+      fileId: pdf._id,
+      filename: pdf.filename,
+    }));
+
+    res.status(200).json(pdfData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   uploadFile,
   retrieveFile,
+  retrieveAllFiles,
 };

@@ -18,5 +18,7 @@ router.post("/upload", upload.single("pdf"), fileController.uploadFile);
 // Endpoint to retrieve and display stored PDF files
 router.get("/retrieve/:fileId", fileController.retrieveFile);
 
+router.get("/retrive-all-files", fileController.retrieveAllFiles);
+
 // router.get("/getNumPages/:fileId", fileController.getPageNumber);
 module.exports = router;
