@@ -16,9 +16,7 @@ const upload = multer({
 router.post("/upload", upload.single("pdf"), fileController.uploadFile);
 
 // Endpoint to retrieve and display stored PDF files
-router.get("/retrieve/:id", fileController.retrieveFile);
+router.get("/retrieve/:fileId", fileController.retrieveFile);
 
-// Endpoint to extract selected pages and create a new PDF
-router.post("/extract-pages", pdfController.extractPages);
 // router.get("/getNumPages/:fileId", fileController.getPageNumber);
 module.exports = router;
