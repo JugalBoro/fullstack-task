@@ -11,6 +11,7 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
+import axios from "axios";
 
 const FileUploadForm = () => {
   const [file, setFile] = useState(null);
@@ -40,20 +41,17 @@ const FileUploadForm = () => {
       setOriginalPdfUrl(URL.createObjectURL(file));
 
       try {
-        const existingPdfBytes = await fetch(URL.createObjectURL(file)).then(
-          (res) => res.arrayBuffer()
-        );
-        const pdfDoc = await PDFDocument.load(existingPdfBytes);
-        const numPages = pdfDoc.getPageCount();
+        const formData = new FormData();
+        formData.append("pdf", file);
 
-        // Set selected pages only if none are manually selected
-        if (selectedPages.length === 0) {
-          setSelectedPages(
-            [...Array(numPages).keys()].map((pageNumber) => pageNumber + 1)
-          );
-        }
+        const response = await axios.post(
+          "https://backendvidyalai.onrender.com/api/upload",
+          formData
+        );
+
+        console.log(response.data);
       } catch (error) {
-        console.error("Error loading PDF:", error);
+        console.error("Error uploading PDF:", error);
       }
     }
   };
@@ -67,13 +65,11 @@ const FileUploadForm = () => {
         return;
       }
 
-      // Load the PDF using pdf-lib
       const existingPdfBytes = await fetch(URL.createObjectURL(file)).then(
         (res) => res.arrayBuffer()
       );
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-      // Create a new PDF containing only the selected pages
       const newPdfDoc = await PDFDocument.create();
       for (const pageNumber of selectedPages) {
         const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [
@@ -82,10 +78,8 @@ const FileUploadForm = () => {
         newPdfDoc.addPage(copiedPage);
       }
 
-      // Serialize the PDFDocument to bytes (a Uint8Array)
       const pdfBytes = await newPdfDoc.save();
 
-      // Create a Blob and set the download link
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
@@ -97,7 +91,6 @@ const FileUploadForm = () => {
     setIsCreatingPdf(false);
   };
 
-  // Update selected pages when the file changes
   useEffect(() => {
     const updateSelectedPages = async () => {
       try {
@@ -108,7 +101,6 @@ const FileUploadForm = () => {
           const pdfDoc = await PDFDocument.load(existingPdfBytes);
           const numPages = pdfDoc.getPageCount();
 
-          // Set selected pages only if none are manually selected
           if (selectedPages.length === 0) {
             setSelectedPages(
               [...Array(numPages).keys()].map((pageNumber) => pageNumber + 1)
