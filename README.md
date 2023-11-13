@@ -48,8 +48,8 @@ npm run dev
 
 ```
 5. open new terminal and go to frontend directory
-   ```bash
-   cd frontend
+```bash
+cd frontend
 6.Install all libraries and run
 ```bash
 npm install
